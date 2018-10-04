@@ -1,0 +1,27 @@
+---
+title: "activity4"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+data<-read.csv("HMXPC13_DI_v2_5-14-14.csv")
+df<-data.frame(data)
+names(df)
+df1<-df[c('grade','nplay_video',"course_id")]
+df2<-df[c('nplay_video','LoE_DI','grade')]
+attach(df1)
+plot(ndays_act,grade,col=course_id)
+library('ggplot2')
+ggplot(df1,aes(ndays_act,grade))+geom_point(aes(color= course_id),alpha=1/2)+facet_wrap(~course_id)+geom_smooth()
+detach(df1)
+attach(df2)
+hist(nplay_video,col=LoE_DI)
+ggplot(df2,aes(nplay_video))+geom_histogram(aes(fill= LoE_DI))+facet_wrap(~LoE_DI)+xlim(-1,5)
+detach(df2)
+
+df2$nforum_posts
+```
+
